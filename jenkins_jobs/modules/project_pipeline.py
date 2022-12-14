@@ -83,8 +83,10 @@ import xml.etree.ElementTree as XML
 from jenkins_jobs.errors import JenkinsJobsException
 import jenkins_jobs.modules.base
 
+# Issue: Pipeline as YAML fails to run if user trigger it with Replay option
+# https://github.com/jenkinsci/pipeline-as-yaml-plugin/issues/32
 
-# TODO: pipeline as yaml fails when it's not run in groovy sandbox
+# Issue: pipeline as yaml fails when it's not run in groovy sandbox
 # org.jenkinsci.plugins.scriptsecurity.scripts.UnapprovedUsageException: script not yet approved for use
 #  at org.jenkinsci.plugins.scriptsecurity.scripts.ScriptApproval.using(ScriptApproval.java:635)
 #  at org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition.create(CpsFlowDefinition.java:124)
