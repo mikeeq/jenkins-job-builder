@@ -84,7 +84,7 @@ from jenkins_jobs.errors import JenkinsJobsException
 import jenkins_jobs.modules.base
 
 
-# TODO: fix -
+# TODO: pipeline as yaml fails when it's not run in groovy sandbox
 # org.jenkinsci.plugins.scriptsecurity.scripts.UnapprovedUsageException: script not yet approved for use
 #  at org.jenkinsci.plugins.scriptsecurity.scripts.ScriptApproval.using(ScriptApproval.java:635)
 #  at org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition.create(CpsFlowDefinition.java:124)
@@ -94,8 +94,6 @@ import jenkins_jobs.modules.base
 #  at hudson.model.ResourceController.execute(ResourceController.java:101)
 #  at hudson.model.Executor.run(Executor.java:442)
 # Finished: FAILURE
-
-## dsl-yaml works after reapplying configuration in Jenkins UI
 
 class Pipeline(jenkins_jobs.modules.base.Base):
     sequence = 0
