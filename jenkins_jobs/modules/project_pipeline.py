@@ -84,7 +84,18 @@ from jenkins_jobs.errors import JenkinsJobsException
 import jenkins_jobs.modules.base
 
 
-# TODO: fix - org.jenkinsci.plugins.scriptsecurity.scripts.UnapprovedUsageException: script not yet approved for use
+# TODO: fix -
+# org.jenkinsci.plugins.scriptsecurity.scripts.UnapprovedUsageException: script not yet approved for use
+#  at org.jenkinsci.plugins.scriptsecurity.scripts.ScriptApproval.using(ScriptApproval.java:635)
+#  at org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition.create(CpsFlowDefinition.java:124)
+#  at io.jenkins.plugins.pipeline.cps.PipelineCpsFlowDefinition.create(PipelineCpsFlowDefinition.java:33)
+#  at io.jenkins.plugins.pipeline.PipelineAsYamlScriptFlowDefinition.create(PipelineAsYamlScriptFlowDefinition.java:56)
+#  at org.jenkinsci.plugins.workflow.job.WorkflowRun.run(WorkflowRun.java:312)
+#  at hudson.model.ResourceController.execute(ResourceController.java:101)
+#  at hudson.model.Executor.run(Executor.java:442)
+# Finished: FAILURE
+
+## dsl-yaml works after reapplying configuration in Jenkins UI
 
 class Pipeline(jenkins_jobs.modules.base.Base):
     sequence = 0
