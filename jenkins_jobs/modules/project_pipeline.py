@@ -86,6 +86,7 @@ class Pipeline(jenkins_jobs.modules.base.Base):
 
     def root_xml(self, data):
         xml_parent = XML.Element("flow-definition", {"plugin": "workflow-job"})
+        # TODO: fix
         if "dsl" in data and "pipeline-scm" in data:
             raise JenkinsJobsException(self.error_msg)
         if "dsl" in data:
@@ -108,9 +109,29 @@ class Pipeline(jenkins_jobs.modules.base.Base):
                     "plugin": "workflow-cps",
                 },
             )
+        elif "dsl-yaml" in data:
+            xml_definition = XML.SubElement(
+                xml_parent,
+                "definition",
+                {
+                    "class": "io.jenkins.plugins." "pipeline.PipelineAsYamlScriptFlowDefinition",
+                    "plugin": "workflow-cps",
+                },
+            )
+            XML.SubElement(xml_definition, "script").text = data["dsl"]
+        elif "pipeline-scm-yaml" in data:
+            xml_definition = XML.SubElement(
+                xml_parent,
+                "definition",
+                {
+                    "class": "io.jenkins.plugins."
+                    "pipeline.PipelineAsYamlScmFlowDefinition"
+                    "plugin": "workflow-cps",
+                },
+            )
         else:
             raise JenkinsJobsException(
-                "Either 'dsl' or 'pipeline-scm' " "is required for pipeline job"
+                "Either 'dsl' or 'pipeline-scm' or 'dsl-yaml' or 'pipeline-scm-yaml'" "is required for pipeline job"
             )
 
         needs_workspace = data.get("sandbox", False)
