@@ -125,7 +125,7 @@ class Pipeline(jenkins_jobs.modules.base.Base):
                 "definition",
                 {
                     "class": "io.jenkins.plugins."
-                    "pipeline.PipelineAsYamlScmFlowDefinition"
+                    "pipeline.PipelineAsYamlScmFlowDefinition",
                     "plugin": "workflow-cps",
                 },
             )
