@@ -546,3 +546,82 @@ json:
 
 
 "definition": {"": "0", "yamlJenkinsFileScm": {"stapler-class": "hudson.scm.NullSCM", "$class": "hudson.scm.NullSCM"}, "yamlJenkinsFilePath": "Jenkinsfile.yaml", "lightweight": true, "stapler-class": "io.jenkins.plugins.pipeline.PipelineAsYamlScmFlowDefinition", "$class": "io.jenkins.plugins.pipeline.PipelineAsYamlScmFlowDefinition"}, "Submit": "", "core:apply": "", "Jenkins-Crumb": "7423416f69ced12671e5bd57ae7ed26c344f310e950c8d4d54dc66a57071969d"}
+
+
+
+
+
+#### Pipeline as yaml fails
+
+enable:
+true
+description:
+<!-- Managed by Jenkins Job Builder -->
+stapler-class-bag:
+true
+specified:
+on
+_.projectUrlStr:
+_.displayName:
+hint:
+MAX_SURVIVABILITY
+_.daysToKeepStr:
+_.numToKeepStr:
+_.artifactDaysToKeepStr:
+_.artifactNumToKeepStr:
+stapler-class:
+hudson.tasks.LogRotator
+$class:
+hudson.tasks.LogRotator
+_.buildCount:
+1
+_.count:
+1
+_.durationName:
+second
+stapler-class-bag:
+true
+_.upstreamProjects:
+ReverseBuildTrigger.threshold:
+SUCCESS
+_.spec:
+_.scmpoll_spec:
+quiet_period:
+5
+authToken:
+_.displayNameOrNull:
+_.yamlJenkinsScript:
+pipeline:
+    agent:
+      any:
+    stages:
+        - stage: "Checkout ansible-ops-private"
+          steps:
+            - echo "1"
+_.sandbox:
+on
+stapler-class:
+io.jenkins.plugins.pipeline.PipelineAsYamlScriptFlowDefinition
+$class:
+io.jenkins.plugins.pipeline.PipelineAsYamlScriptFlowDefinition
+stapler-class:
+io.jenkins.plugins.pipeline.PipelineAsYamlScmFlowDefinition
+$class:
+io.jenkins.plugins.pipeline.PipelineAsYamlScmFlowDefinition
+stapler-class:
+org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition
+$class:
+org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition
+stapler-class:
+org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition
+$class:
+org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition
+Submit:
+core:apply:
+Jenkins-Crumb:
+529dbd939ce4fcd3ebab94b2d299983a5244e6474a507ba9a375cc61c661c42f
+json:
+{"enable": true, "description": "<!-- Managed by Jenkins Job Builder -->", "properties": {"stapler-class-bag": "true", "org-jenkinsci-plugins-workflow-job-properties-DisableConcurrentBuildsJobProperty": {"specified": true, "abortPrevious": false}, "org-jenkinsci-plugins-workflow-job-properties-DisableResumeJobProperty": {"specified": false}, "com-coravy-hudson-plugins-github-GithubProjectProperty": {}, "org-jenkinsci-plugins-workflow-job-properties-DurabilityHintJobProperty": {"specified": false, "hint": "MAX_SURVIVABILITY"}, "jenkins-model-BuildDiscarderProperty": {"specified": false, "": "0", "strategy": {"daysToKeepStr": "", "numToKeepStr": "", "artifactDaysToKeepStr": "", "artifactNumToKeepStr": "", "stapler-class": "hudson.tasks.LogRotator", "$class": "hudson.tasks.LogRotator"}}, "org-jenkinsci-plugins-pipeline-modeldefinition-properties-PreserveStashesJobProperty": {"specified": false, "buildCount": "1"}, "com-sonyericsson-rebuild-RebuildSettings": {"autoRebuild": false, "rebuildDisabled": false}, "jenkins-branch-RateLimitBranchProperty$JobPropertyImpl": {}, "hudson-model-ParametersDefinitionProperty": {"specified": false}, "org-jenkinsci-plugins-workflow-job-properties-PipelineTriggersJobProperty": {"triggers": {"stapler-class-bag": "true"}}}, "hasCustomQuietPeriod": false, "quiet_period": "5", "displayNameOrNull": "", "": "0",
+
+
+"definition": {"yamlJenkinsScript": "pipeline:\n    agent:\n      any:\n    stages:\n        - stage: \"Checkout ansible-ops-private\"\n          steps:\n            - echo \"1\"\n", "": "\u0001\u0001", "sandbox": true, "stapler-class": "io.jenkins.plugins.pipeline.PipelineAsYamlScriptFlowDefinition", "$class": "io.jenkins.plugins.pipeline.PipelineAsYamlScriptFlowDefinition"}, "Submit": "", "core:apply": "", "Jenkins-Crumb": "529dbd939ce4fcd3ebab94b2d299983a5244e6474a507ba9a375cc61c661c42f"}

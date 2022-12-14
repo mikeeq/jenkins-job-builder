@@ -43,6 +43,10 @@ interpreted by the python str.format() command.
         * **lightweight-checkout** (`bool`): If selected, try to obtain the
           Pipeline script contents directly from the SCM without performing a
           full checkout. (optional, default: ``false``)
+    * **dsl-yaml**
+    * **pipeline-scm-yaml**
+      * **scm**
+      * **yamlJenkinsFilePath**
 
 Note that ``dsl`` and ``pipeline-scm`` parameters are mutually exclusive.
 
@@ -79,6 +83,8 @@ import xml.etree.ElementTree as XML
 from jenkins_jobs.errors import JenkinsJobsException
 import jenkins_jobs.modules.base
 
+
+# TODO: fix - org.jenkinsci.plugins.scriptsecurity.scripts.UnapprovedUsageException: script not yet approved for use
 
 class Pipeline(jenkins_jobs.modules.base.Base):
     sequence = 0
