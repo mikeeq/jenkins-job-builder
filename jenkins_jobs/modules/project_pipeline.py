@@ -43,6 +43,10 @@ interpreted by the python str.format() command.
         * **lightweight-checkout** (`bool`): If selected, try to obtain the
           Pipeline script contents directly from the SCM without performing a
           full checkout. (optional, default: ``false``)
+    * **dsl-yaml**
+    * **pipeline-scm-yaml**
+      * **scm**
+      * **yamlJenkinsFilePath**
 
 Note that ``dsl`` and ``pipeline-scm`` parameters are mutually exclusive.
 
@@ -79,6 +83,19 @@ import xml.etree.ElementTree as XML
 from jenkins_jobs.errors import JenkinsJobsException
 import jenkins_jobs.modules.base
 
+# Issue: Pipeline as YAML fails to run if user trigger it with Replay option
+# https://github.com/jenkinsci/pipeline-as-yaml-plugin/issues/32
+
+# Issue: pipeline as yaml fails when it's not run in groovy sandbox
+# org.jenkinsci.plugins.scriptsecurity.scripts.UnapprovedUsageException: script not yet approved for use
+#  at org.jenkinsci.plugins.scriptsecurity.scripts.ScriptApproval.using(ScriptApproval.java:635)
+#  at org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition.create(CpsFlowDefinition.java:124)
+#  at io.jenkins.plugins.pipeline.cps.PipelineCpsFlowDefinition.create(PipelineCpsFlowDefinition.java:33)
+#  at io.jenkins.plugins.pipeline.PipelineAsYamlScriptFlowDefinition.create(PipelineAsYamlScriptFlowDefinition.java:56)
+#  at org.jenkinsci.plugins.workflow.job.WorkflowRun.run(WorkflowRun.java:312)
+#  at hudson.model.ResourceController.execute(ResourceController.java:101)
+#  at hudson.model.Executor.run(Executor.java:442)
+# Finished: FAILURE
 
 class Pipeline(jenkins_jobs.modules.base.Base):
     sequence = 0
@@ -86,6 +103,7 @@ class Pipeline(jenkins_jobs.modules.base.Base):
 
     def root_xml(self, data):
         xml_parent = XML.Element("flow-definition", {"plugin": "workflow-job"})
+        # TODO: fix
         if "dsl" in data and "pipeline-scm" in data:
             raise JenkinsJobsException(self.error_msg)
         if "dsl" in data:
@@ -108,9 +126,29 @@ class Pipeline(jenkins_jobs.modules.base.Base):
                     "plugin": "workflow-cps",
                 },
             )
+        elif "dsl-yaml" in data:
+            xml_definition = XML.SubElement(
+                xml_parent,
+                "definition",
+                {
+                    "class": "io.jenkins.plugins." "pipeline.PipelineAsYamlScriptFlowDefinition",
+                    "plugin": "workflow-cps",
+                },
+            )
+            XML.SubElement(xml_definition, "yamlJenkinsScript").text = data["dsl-yaml"]
+        elif "pipeline-scm-yaml" in data:
+            xml_definition = XML.SubElement(
+                xml_parent,
+                "definition",
+                {
+                    "class": "io.jenkins.plugins."
+                    "pipeline.PipelineAsYamlScmFlowDefinition",
+                    "plugin": "workflow-cps",
+                },
+            )
         else:
             raise JenkinsJobsException(
-                "Either 'dsl' or 'pipeline-scm' " "is required for pipeline job"
+                "Either 'dsl' or 'pipeline-scm' or 'dsl-yaml' or 'pipeline-scm-yaml'" "is required for pipeline job"
             )
 
         needs_workspace = data.get("sandbox", False)
